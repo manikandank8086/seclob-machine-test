@@ -30,17 +30,23 @@ function Layout() {
     location.pathname === "/register" ||
     location.pathname.startsWith("/product");
 
+    const hideNavbar =
+  location.pathname === "/" ||
+  location.pathname === "/register";
+
   return (
     <div className="min-h-screen flex flex-col">
       <ToastContainer position="top-right" autoClose={2000} />
 
       {/* NAVBAR */}
-      <div className="sticky top-0 z-50">
-        <Navbar
-          wishlistCount={products.filter((p) => p.wishlist).length}
-          onSearch={setSearchTerm}
-        />
-      </div>
+      {!hideNavbar && (
+  <div className="sticky top-0 z-50">
+    <Navbar
+      wishlistCount={products.filter((p) => p.wishlist).length}
+      onSearch={setSearchTerm}
+    />
+  </div>
+)}
 
       {/* BODY */}
       <div className="flex flex-1">
