@@ -1,4 +1,3 @@
-// components/WishlistDrawer.jsx
 export default function WishlistDrawer({ open, setOpen }) {
   return (
     <div

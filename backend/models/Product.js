@@ -9,10 +9,8 @@ const productSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
 
-    /* OLD (KEEP FOR NOW - DO NOT REMOVE) */
     subCategory: { type: String, required: true },
 
-    /* NEW STRUCTURE (ADD THESE) */
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",

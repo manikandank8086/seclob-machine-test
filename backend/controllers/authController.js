@@ -6,9 +6,8 @@ import jwt from "jsonwebtoken";
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    console.log('working')
 
-    console.log(name,email,password)
+    console.log(name, email, password)
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -33,7 +32,6 @@ export const registerUser = async (req, res) => {
 // LOGIN
 export const loginUser = async (req, res) => {
   try {
-    console.log('login controller working')
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });

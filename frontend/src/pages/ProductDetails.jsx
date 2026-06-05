@@ -78,28 +78,26 @@ export default function ProductDetails({ products, setProducts }) {
 
 
   const toggleWishlist = async (id) => {
-  try {
-    const res = await api.patch(`/products/wishlist/${id}`);
+    try {
+      const res = await api.patch(`/products/wishlist/${id}`);
 
-    const updatedWishlist = res.data.product.wishlist;
+      const updatedWishlist = res.data.product.wishlist;
 
-    // 1. update current product page
-    setProduct((prev) => ({
-      ...prev,
-      wishlist: updatedWishlist,
-    }));
+      setProduct((prev) => ({
+        ...prev,
+        wishlist: updatedWishlist,
+      }));
 
-    // 2. update global products (IMPORTANT FOR NAVBAR)
-    setProducts((prev) =>
-      prev.map((p) =>
-        p._id === id ? { ...p, wishlist: updatedWishlist } : p
-      )
-    );
+      setProducts((prev) =>
+        prev.map((p) =>
+          p._id === id ? { ...p, wishlist: updatedWishlist } : p
+        )
+      );
 
-  } catch (error) {
-    console.log(error);
-  }
-};
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
 

@@ -16,11 +16,7 @@ router.get("/wishlist", getWishlistProducts);
 router.get("/:id", getProductById);
 
 router.patch("/wishlist/:id", toggleWishlist);
-router.put(
-  "/:id",
-  upload.array("files", 2),
-  updateProduct
-);
+router.put( "/:id",upload.array("files", 2),updateProduct);
 
 
 export default router;

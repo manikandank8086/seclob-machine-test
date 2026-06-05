@@ -184,50 +184,50 @@ export default function AddProductModal({ open, onClose }) {
           </div>
 
           {/* SUB CATEGORY */}
-         <div className="flex items-center gap-4">
-  <label className="w-28 text-gray-500">Sub Category :</label>
+          <div className="flex items-center gap-4">
+            <label className="w-28 text-gray-500">Sub Category :</label>
 
-  <div className="relative flex-1">
+            <div className="relative flex-1">
 
-    {/* SELECT BOX */}
-    <div
-      onClick={() => setDropDownOpen((prev) => !prev)}
-      className="w-full border rounded-lg px-3 py-2 cursor-pointer bg-white"
-    >
-      {selected || "Select Sub Category"}
-    </div>
+              {/* SELECT BOX */}
+              <div
+                onClick={() => setDropDownOpen((prev) => !prev)}
+                className="w-full border rounded-lg px-3 py-2 cursor-pointer bg-white"
+              >
+                {selected || "Select Sub Category"}
+              </div>
 
-    {/* DROPDOWN */}
-    {dropdownOpen && (
-      <div className="absolute z-50 w-full mt-1 bg-white border rounded-lg max-h-48 overflow-y-auto shadow-lg">
+              {/* DROPDOWN */}
+              {dropdownOpen && (
+                <div className="absolute z-50 w-full mt-1 bg-white border rounded-lg max-h-48 overflow-y-auto shadow-lg">
 
-        {subCategories.length === 0 ? (
-          <div className="px-3 py-2 text-gray-400">
-            No subcategories
-          </div>
-        ) : (
-          subCategories.map((sc) => (
-            <div
-              key={sc._id}
-              onClick={() => {
-                setSelected(sc.name);
+                  {subCategories.length === 0 ? (
+                    <div className="px-3 py-2 text-gray-400">
+                      No subcategories
+                    </div>
+                  ) : (
+                    subCategories.map((sc) => (
+                      <div
+                        key={sc._id}
+                        onClick={() => {
+                          setSelected(sc.name);
 
-                setValue("subCategory", sc.name); // 🔥 IMPORTANT FIX
+                          setValue("subCategory", sc.name); // 🔥 IMPORTANT FIX
 
-                setDropDownOpen(false);
-              }}
-              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
-            >
-              {sc.name}
+                          setDropDownOpen(false);
+                        }}
+                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                      >
+                        {sc.name}
+                      </div>
+                    ))
+                  )}
+
+                </div>
+              )}
+
             </div>
-          ))
-        )}
-
-      </div>
-    )}
-
-  </div>
-</div>
+          </div>
 
           {/* DESCRIPTION */}
           <div className="flex items-start gap-4">

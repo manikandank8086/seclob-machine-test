@@ -48,7 +48,6 @@ export const createProduct = async (req, res) => {
 export const getProducts = async (req, res) => {
   try {
 
-    console.log('fetch productdddd')
     const products = await Product.find().sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -122,7 +121,6 @@ export const getProductById = async (req, res) => {
 
 export const getWishlistProducts = async (req, res) => {
   try {
-    console.log("Wishlist API called");
 
     const wishlistProducts = await Product.find({
       wishlist: true,
@@ -149,7 +147,6 @@ export const getWishlistProducts = async (req, res) => {
 
 
 export const updateProduct = async (req, res) => {
-  console.log("working update function");
 
   try {
     const { id } = req.params;
