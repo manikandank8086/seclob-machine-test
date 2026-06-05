@@ -154,7 +154,7 @@ export default function Home({
                 </h2>
 
                 <p className="font-bold text-gray-700">
-                  ${p?.variants?.[0]?.price || 0}
+                  {p?.variants?.[0]?.price || 0}
                 </p>
 
                 {/* WISHLIST */}
