@@ -14,8 +14,10 @@ import "react-toastify/dist/ReactToastify.css";
 function Layout() {
   const location = useLocation();
 
-  const hideSidebarRoutes = ["/", "/register"];
-  const hideSidebar = hideSidebarRoutes.includes(location.pathname);
+  const hideSidebar =
+    location.pathname === "/" ||
+    location.pathname === "/register" ||
+    location.pathname.startsWith("/product");
 
   return (
     <div className="flex">
@@ -25,7 +27,6 @@ function Layout() {
 
       <div className="flex-1 min-h-screen bg-gray-50">
         <Routes>
-
           {/* PUBLIC ROUTES */}
           <Route
             path="/"
@@ -63,7 +64,6 @@ function Layout() {
               </ProtectedRoute>
             }
           />
-
         </Routes>
       </div>
     </div>

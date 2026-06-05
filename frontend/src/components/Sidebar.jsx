@@ -2,11 +2,11 @@
 import { useState } from "react";
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <>
-      {/* Mobile toggle */}
+      {/* mobile toggle */}
       <button
         className="md:hidden p-2 m-2 border"
         onClick={() => setOpen(!open)}
@@ -15,16 +15,24 @@ export default function Sidebar() {
       </button>
 
       <div
-        className={`bg-white shadow-md h-screen p-4 fixed md:static z-50 transition-all
-        ${open ? "left-0" : "-left-full"} md:left-0 w-64`}
+        className={`bg-white border-r h-screen p-4 transition-all
+        ${open ? "block" : "hidden"} md:block w-64`}
       >
-        <h2 className="text-xl font-bold mb-4">Dashboard</h2>
+        <h2 className="font-bold mb-4">Categories</h2>
 
         <ul className="space-y-3 text-gray-700">
-          <li className="hover:text-orange-500 cursor-pointer">Home</li>
-          <li className="hover:text-orange-500 cursor-pointer">Products</li>
-          <li className="hover:text-orange-500 cursor-pointer">Orders</li>
-          <li className="hover:text-orange-500 cursor-pointer">Wishlist</li>
+          <li className="font-medium">All categories</li>
+
+          <li>
+            Laptop
+            <ul className="ml-4 mt-2 space-y-1 text-sm text-gray-500">
+              <li>HP</li>
+              <li>Dell</li>
+            </ul>
+          </li>
+
+          <li>Tablet</li>
+          <li>Headphones</li>
         </ul>
       </div>
     </>
