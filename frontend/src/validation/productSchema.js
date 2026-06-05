@@ -80,3 +80,43 @@ export const createProductSchema = yup.object().shape({
       );
     }),
 });
+
+
+
+export const editProductSchema = yup.object().shape({
+  title: yup
+    .string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters"),
+
+  subCategory: yup
+    .string()
+    .required("Sub category is required"),
+
+  description: yup
+    .string()
+    .required("Description is required")
+    .min(10, "Minimum 10 characters required"),
+
+  variants: yup.array().of(
+    yup.object().shape({
+      ram: yup.string().required("RAM is required"),
+
+      price: yup
+        .string()
+        .required("Price is required")
+        .matches(
+          /^\$?\d+(\.\d{1,2})?$/,
+          "Invalid price format"
+        ),
+
+      qty: yup
+        .number()
+        .typeError("Qty must be a number")
+        .min(0, "Qty cannot be negative")
+        .required("Qty is required"),
+    })
+  ),
+
+  files: yup.mixed().nullable(),
+});

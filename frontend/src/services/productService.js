@@ -23,3 +23,26 @@ export const createProduct = async (data) => {
     },
   });
 };
+
+
+
+export const updateProduct = (id, data) => {
+  const formData = new FormData();
+
+  formData.append("title", data.title);
+  formData.append("description", data.description);
+  formData.append("subCategory", data.subCategory);
+
+  formData.append(
+    "variants",
+    JSON.stringify(data.variants)
+  );
+
+  if (data.files?.length) {
+    Array.from(data.files).forEach((file) => {
+      formData.append("files", file);
+    });
+  }
+
+  return api.put(`/products/${id}`, formData);
+};

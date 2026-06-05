@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Navbar from "../components/Navbar";
+import EditProductModal from "../components/EditProductModal";
+
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -13,7 +15,9 @@ export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
   const [selectedRam, setSelectedRam] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-    const [wishlistCount, setWishlistCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+
+  const [editOpen, setEditOpen] = useState(false);
 
 
   useEffect(() => {
@@ -44,43 +48,58 @@ export default function ProductDetails() {
   }, [id]);
 
   useEffect(() => {
-  const fetchWishlistCount = async () => {
-    try {
-      const res = await api.get("/products/wishlist");
+    const fetchWishlistCount = async () => {
+      try {
+        const res = await api.get("/products/wishlist");
 
-      setWishlistCount(res.data?.data?.length || 0);
-    } catch (error) {
-      console.log("Wishlist Count Error:", error);
-    }
-  };
+        setWishlistCount(res.data?.data?.length || 0);
+      } catch (error) {
+        console.log("Wishlist Count Error:", error);
+      }
+    };
 
-  fetchWishlistCount();
-}, []);
+    fetchWishlistCount();
+  }, []);
 
 
-const toggleWishlist = async (id) => {
-  try {
-    const res = await api.patch(`/products/wishlist/${id}`);
+  const handleProductUpdated = (updatedProduct) => {
+  setProduct(updatedProduct);
 
-    const updatedWishlist = res.data.product.wishlist;
+  if (updatedProduct?.images?.length) {
+    setSelectedImage(updatedProduct.images[0]);
+  }
 
-    setProduct((prev) => ({
-      ...prev,
-      wishlist: updatedWishlist,
-    }));
-
-    setWishlistCount((prev) =>
-      updatedWishlist ? prev + 1 : Math.max(prev - 1, 0)
-    );
-  } catch (error) {
-    console.log(error);
+  if (updatedProduct?.variants?.length) {
+    setSelectedRam(updatedProduct.variants[0].ram);
   }
 };
 
 
 
 
-  
+  const toggleWishlist = async (id) => {
+    try {
+      const res = await api.patch(`/products/wishlist/${id}`);
+
+      const updatedWishlist = res.data.product.wishlist;
+
+      setProduct((prev) => ({
+        ...prev,
+        wishlist: updatedWishlist,
+      }));
+
+      setWishlistCount((prev) =>
+        updatedWishlist ? prev + 1 : Math.max(prev - 1, 0)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
+
 
 
   /* ---------------- IMAGE HANDLER ---------------- */
@@ -246,7 +265,10 @@ const toggleWishlist = async (id) => {
           {/* BUTTONS */}
           <div className="flex flex-wrap gap-4 items-center">
 
-            <button className="bg-[#E8A313] text-white px-8 py-3 rounded-full">
+            <button
+              onClick={() => setEditOpen(true)}
+              className="bg-[#E8A313] text-white px-8 py-3 rounded-full"
+            >
               Edit Product
             </button>
 
@@ -278,6 +300,13 @@ const toggleWishlist = async (id) => {
       </div>
 
 
+
+    <EditProductModal
+  open={editOpen}
+  onClose={() => setEditOpen(false)}
+  product={product}
+  onProductUpdated={handleProductUpdated}
+/>
 
 
 

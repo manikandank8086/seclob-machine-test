@@ -142,3 +142,67 @@ export const getWishlistProducts = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
+export const updateProduct = async (req, res) => {
+  console.log('working update function')
+  try {
+    const { id } = req.params;
+
+    const {
+      title,
+      description,
+      subCategory,
+      variants,
+    } = req.body;
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    let imagePaths = product.images;
+
+    if (req.files && req.files.length > 0) {
+      imagePaths = req.files.map(
+        (file) => `/uploads/${file.filename}`
+      );
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+        subCategory,
+        variants: JSON.parse(variants),
+        images: imagePaths,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Product updated successfully",
+      data: updatedProduct,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

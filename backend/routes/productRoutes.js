@@ -1,5 +1,5 @@
 import express from "express";
-import { createProduct, getProductById, getProducts, getWishlistProducts, toggleWishlist } from "../controllers/productController.js";
+import { createProduct, getProductById, getProducts, getWishlistProducts, toggleWishlist, updateProduct } from "../controllers/productController.js";
 import { upload } from "../middleware/upload.js";
 
 const router = express.Router();
@@ -16,7 +16,11 @@ router.get("/wishlist", getWishlistProducts);
 router.get("/:id", getProductById);
 
 router.patch("/wishlist/:id", toggleWishlist);
-
+router.put(
+  "/:id",
+  upload.array("files", 2),
+  updateProduct
+);
 
 
 export default router;
