@@ -6,10 +6,12 @@ import WishlistDrawer from "./WishlistDrawer";
 export default function Navbar({
   wishlistCount = 0,
   getImageUrl,
+  onSearch,
 }) {
   const [wishlistOpen, setWishlistOpen] = useState(false);
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   const openWishlist = async () => {
     try {
@@ -25,7 +27,15 @@ export default function Navbar({
       console.error("Wishlist Error:", error);
     } finally {
       setLoading(false);
-    }   
+    }
+  };
+
+
+
+  const handleSearch = () => {
+    if (!search.trim()) return;
+
+    window.location.href = `/home?search=${search}`;
   };
 
   return (
@@ -36,11 +46,19 @@ export default function Navbar({
           <div className="flex w-full max-w-xl">
             <input
               type="text"
-              placeholder="Search anything..."
+              placeholder="Search product..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                onSearch(e.target.value);
+              }}
               className="w-full px-4 py-2 rounded-l-md text-black outline-none"
             />
 
-            <button className="bg-[#EDA415] px-6 rounded-r-md font-semibold">
+            <button
+              onClick={handleSearch}
+              className="bg-[#EDA415] px-6 rounded-r-md font-semibold"
+            >
               Search
             </button>
           </div>

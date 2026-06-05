@@ -14,6 +14,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [showSubCategoryModal, setShowSubCategoryModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
 
   const navigate = useNavigate()
@@ -59,6 +60,14 @@ export default function Home() {
   const wishlistCount = products.filter((p) => p.wishlist).length;
 
 
+
+  const filteredProducts = products.filter((product) =>
+    product.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
+
   /* ---------------- IMAGE HANDLER ---------------- */
   const IMAGE_BASE_URL = "http://localhost:5000";
 
@@ -76,10 +85,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-   <Navbar
-  wishlistCount={wishlistCount}
-  getImageUrl={getImageUrl}
-/>
+      <Navbar
+        wishlistCount={wishlistCount}
+        getImageUrl={getImageUrl}
+        onSearch={setSearchTerm}
+      />
 
       <div className="flex">
         <div className="flex-1 p-4">
@@ -115,7 +125,7 @@ export default function Home() {
             <p className="text-center text-gray-500">Loading...</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((p) => (
+              {filteredProducts.map((p) => (
                 <div
                   key={p._id}
                   className="bg-white rounded-xl shadow hover:shadow-lg p-4 relative"
