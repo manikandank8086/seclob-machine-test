@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import EditProductModal from "../components/EditProductModal";
 
 
-export default function ProductDetails() {
+export default function ProductDetails({ products, setProducts }) {
   const { id } = useParams();
   const navigate = useNavigate()
 
@@ -63,38 +63,43 @@ export default function ProductDetails() {
 
 
   const handleProductUpdated = (updatedProduct) => {
-  setProduct(updatedProduct);
+    setProduct(updatedProduct);
 
-  if (updatedProduct?.images?.length) {
-    setSelectedImage(updatedProduct.images[0]);
-  }
+    if (updatedProduct?.images?.length) {
+      setSelectedImage(updatedProduct.images[0]);
+    }
 
-  if (updatedProduct?.variants?.length) {
-    setSelectedRam(updatedProduct.variants[0].ram);
-  }
-};
+    if (updatedProduct?.variants?.length) {
+      setSelectedRam(updatedProduct.variants[0].ram);
+    }
+  };
 
 
 
 
   const toggleWishlist = async (id) => {
-    try {
-      const res = await api.patch(`/products/wishlist/${id}`);
+  try {
+    const res = await api.patch(`/products/wishlist/${id}`);
 
-      const updatedWishlist = res.data.product.wishlist;
+    const updatedWishlist = res.data.product.wishlist;
 
-      setProduct((prev) => ({
-        ...prev,
-        wishlist: updatedWishlist,
-      }));
+    // 1. update current product page
+    setProduct((prev) => ({
+      ...prev,
+      wishlist: updatedWishlist,
+    }));
 
-      setWishlistCount((prev) =>
-        updatedWishlist ? prev + 1 : Math.max(prev - 1, 0)
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    // 2. update global products (IMPORTANT FOR NAVBAR)
+    setProducts((prev) =>
+      prev.map((p) =>
+        p._id === id ? { ...p, wishlist: updatedWishlist } : p
+      )
+    );
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 
@@ -142,10 +147,10 @@ export default function ProductDetails() {
 
       {/* Navbar */}
       <div className="w-full sticky top-0 z-50 shadow-sm bg-white">
-        <Navbar
+        {/* <Navbar
           wishlistCount={wishlistCount}
           getImageUrl={getImageUrl}
-        />
+        /> */}
       </div>
 
       {/* Breadcrumb */}
@@ -301,12 +306,12 @@ export default function ProductDetails() {
 
 
 
-    <EditProductModal
-  open={editOpen}
-  onClose={() => setEditOpen(false)}
-  product={product}
-  onProductUpdated={handleProductUpdated}
-/>
+      <EditProductModal
+        open={editOpen}
+        onClose={() => setEditOpen(false)}
+        product={product}
+        onProductUpdated={handleProductUpdated}
+      />
 
 
 

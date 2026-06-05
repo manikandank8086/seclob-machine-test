@@ -24,15 +24,13 @@ export const createSubCategory = async (req, res) => {
 };
 
 /* GET ALL SUBCATEGORIES */
-export const getSubCategories = async (req, res) => {
+export const getAllSubCategories = async (req, res) => {
   try {
-    const subCategories = await SubCategory.find()
-      .populate("categoryId")
-      .sort({ createdAt: -1 });
+    const data = await SubCategory.find().sort({ createdAt: -1 });
 
-    res.json({
+    res.status(200).json({
       success: true,
-      data: subCategories,
+      data,
     });
   } catch (error) {
     res.status(500).json({

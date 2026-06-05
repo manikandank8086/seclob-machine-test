@@ -4,10 +4,21 @@ export default function WishlistDrawer({
   open,
   onClose,
   products = [],
-  getImageUrl,
   loading,
 }) {
   if (!open) return null;
+
+
+  /* ---------------- IMAGE ---------------- */
+  const IMAGE_BASE_URL = "http://localhost:5000";
+
+  const getImageUrl = (img) => {
+    if (!img) return "https://via.placeholder.com/300";
+    if (img.startsWith("http")) return img;
+    if (img.startsWith("/uploads")) return IMAGE_BASE_URL + img;
+    return IMAGE_BASE_URL + "/uploads/" + img;
+  };
+
 
   return (
     <>

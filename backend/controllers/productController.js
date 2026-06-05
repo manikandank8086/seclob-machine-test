@@ -1,15 +1,18 @@
 import Product from "../models/Product.js";
+import SubCategory from "../models/SubCategory.js";
 
 export const createProduct = async (req, res) => {
   try {
     const {
       title,
       subCategory,
-      categoryId,
-      subCategoryId,
       description,
       variants,
     } = req.body;
+
+    const subCategoryDoc = await SubCategory.findOne({
+      name: subCategory,
+    });
 
     const images = req.files.map(
       (file) => `/uploads/${file.filename}`
@@ -17,11 +20,10 @@ export const createProduct = async (req, res) => {
 
     const product = await Product.create({
       title,
-      subCategory, // keep old working field (DO NOT REMOVE)
+      subCategory,
 
-      // NEW FIELDS (SAFE ADDITION)
-      categoryId,
-      subCategoryId,
+      categoryId: subCategoryDoc?.categoryId || null,
+      subCategoryId: subCategoryDoc?._id || null,
 
       description,
       variants: JSON.parse(variants),
@@ -40,7 +42,6 @@ export const createProduct = async (req, res) => {
     });
   }
 };
-
 
 
 // GET ALL PRODUCTS
@@ -147,9 +148,9 @@ export const getWishlistProducts = async (req, res) => {
 
 
 
-
 export const updateProduct = async (req, res) => {
-  console.log('working update function')
+  console.log("working update function");
+
   try {
     const { id } = req.params;
 
@@ -169,6 +170,11 @@ export const updateProduct = async (req, res) => {
       });
     }
 
+    // Find selected subcategory
+    const subCategoryDoc = await SubCategory.findOne({
+      name: subCategory,
+    });
+
     let imagePaths = product.images;
 
     if (req.files && req.files.length > 0) {
@@ -183,6 +189,11 @@ export const updateProduct = async (req, res) => {
         title,
         description,
         subCategory,
+
+        // Auto update these fields
+        categoryId: subCategoryDoc?.categoryId || null,
+        subCategoryId: subCategoryDoc?._id || null,
+
         variants: JSON.parse(variants),
         images: imagePaths,
       },
