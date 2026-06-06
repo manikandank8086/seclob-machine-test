@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import {  Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { HashRouter } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -94,8 +95,8 @@ function Layout() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Layout />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
