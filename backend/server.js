@@ -16,13 +16,15 @@ connectDB();
 
 const app = express();
 
-cors({
-  origin: [
-    "http://localhost:5173",
-    "https://your-frontend.vercel.app",
-  ],
-  credentials: true,
-})
+pp.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://seclob-machine-test-78a1jsi4z-manus-projects-a4e3d203.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
