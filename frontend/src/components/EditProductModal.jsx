@@ -279,7 +279,7 @@ export default function EditProductModal({
                                 {product?.images?.map((img, i) => (
                                     <img
                                         key={i}
-                                        src={`http://localhost:5000${img}`}
+                                        src={`https://seclob-machine-test.onrender.com${img}`}
                                         alt=""
                                         className="w-20 h-20 border rounded object-cover bg-gray-50"
                                     />
