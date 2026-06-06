@@ -79,6 +79,14 @@ It includes product listing, category/subcategory filtering, wishlist feature, p
 
 ---
 
+
+## 📱 Responsiveness Note
+
+This application is primarily optimized for **desktop (laptop) view**.  
+Some UI sections may not be fully responsive on smaller screens (mobile devices).
+
+For the best experience, please use the application on a laptop or desktop screen.
+
 ## Installation
 
 ### 1. Clone repo
