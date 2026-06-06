@@ -96,8 +96,8 @@ git clone https://github.com/manikandank8086/seclob-machine-test.git
 
 
 ## Backend .env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/seclob
+PORT=5000  
+MONGO_URI=mongodb+srv://vfcmanikandan7_db_user:lZ1MqhgH3CPEnGNL@seclob-machine-test.ytn3xoh.mongodb.net/seclob?appName=seclob-machine-test
 JWT_SECRET=your_secret_key
 ## Note: JWT_SECRET is required for authentication token generation. Without it, backend will fail to sign tokens.
 
