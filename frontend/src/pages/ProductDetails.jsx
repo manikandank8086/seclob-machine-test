@@ -164,33 +164,34 @@ export default function ProductDetails({ products, setProducts }) {
       </div>
 
       {/* MAIN GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 pb-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 px-4 sm:px-6 pb-10">
 
         {/* LEFT SIDE */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center w-full">
 
           {/* MAIN IMAGE */}
-          <div className="w-full max-w-md border rounded-2xl h-[420px] flex items-center justify-center bg-white shadow-sm">
+          <div className="w-full max-w-md border rounded-2xl h-[280px] sm:h-[420px] flex items-center justify-center bg-white shadow-sm p-4">
             <img
               src={getImageUrl(selectedImage)}
               alt={product.title}
-              className="max-h-[320px] object-contain"
+              className="max-h-[220px] sm:max-h-[320px] object-contain transition-all duration-300"
             />
           </div>
 
           {/* THUMBNAILS (BOTTOM CENTERED) */}
-          <div className="flex gap-4 mt-5 justify-center">
+          <div className="flex gap-3 sm:gap-4 mt-5 justify-center">
             {thumbnails.map((img, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedImage(img)}
-                className={`w-24 h-20 border rounded-xl flex items-center justify-center transition`}
-
+                className={`w-20 h-16 sm:w-24 sm:h-20 border rounded-xl flex items-center justify-center transition hover:border-[#E8A313] ${
+                  selectedImage === img ? "border-[#E8A313] ring-1 ring-[#E8A313]" : "border-gray-200"
+                }`}
               >
                 <img
                   src={getImageUrl(img)}
                   alt="thumbnail"
-                  className="w-16 object-contain"
+                  className="w-12 sm:w-16 object-contain"
                 />
               </button>
             ))}
@@ -198,22 +199,22 @@ export default function ProductDetails({ products, setProducts }) {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="max-w-xl">
+        <div className="max-w-xl w-full mx-auto lg:mx-0">
 
-          <h1 className="text-3xl font-semibold text-[#0B4A75] mb-3">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[#0B4A75] mb-3 leading-tight">
             {product.title}
           </h1>
 
-          <p className="text-3xl font-bold text-gray-800 mb-5">
+          <p className="text-2xl sm:text-3xl font-bold text-gray-800 mb-5">
             {selectedVariant?.price}
           </p>
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="font-medium text-gray-700">Availability:</span>
-            <span className="text-green-600 font-medium">✓ In stock</span>
+            <span className="font-medium text-gray-700 text-sm sm:text-base">Availability:</span>
+            <span className="text-green-600 font-medium text-sm sm:text-base">✓ In stock</span>
           </div>
 
-          <p className="text-sm text-gray-400 mb-8">
+          <p className="text-xs sm:text-sm text-gray-400 mb-6 sm:mb-8">
             Hurry up! only 34 product left in stock!
           </p>
 
@@ -222,17 +223,17 @@ export default function ProductDetails({ products, setProducts }) {
           {/* RAM */}
           {product.variants?.length > 0 && (
             <div className="mb-6">
-              <h3 className="font-medium mb-3">Ram:</h3>
+              <h3 className="font-medium mb-3 text-sm sm:text-base">Ram:</h3>
 
-              <div className="flex gap-3 flex-wrap">
+              <div className="flex gap-2 sm:gap-3 flex-wrap">
                 {product.variants.map((v, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedRam(v.ram)}
-                    className={`px-4 py-2 border rounded text-sm
+                    className={`px-3 py-1.5 sm:px-4 sm:py-2 border rounded text-xs sm:text-sm transition
                   ${selectedRam === v.ram
                         ? "bg-black text-white border-black"
-                        : "border-gray-300"
+                        : "border-gray-300 hover:border-black"
                       }`}
                   >
                     {v.ram}
@@ -243,8 +244,8 @@ export default function ProductDetails({ products, setProducts }) {
           )}
 
           {/* QTY */}
-          <div className="mb-8">
-            <h3 className="font-medium mb-3">Quantity:</h3>
+          <div className="mb-6 sm:mb-8">
+            <h3 className="font-medium mb-3 text-sm sm:text-base">Quantity:</h3>
 
             <div className="inline-flex border rounded overflow-hidden">
               <button
@@ -254,7 +255,7 @@ export default function ProductDetails({ products, setProducts }) {
                 <Minus size={16} />
               </button>
 
-              <span className="px-5 py-2 border-x">{quantity}</span>
+              <span className="px-5 py-2 border-x font-medium">{quantity}</span>
 
               <button
                 onClick={() => setQuantity((p) => p + 1)}
@@ -266,22 +267,21 @@ export default function ProductDetails({ products, setProducts }) {
           </div>
 
           {/* BUTTONS */}
-          <div className="flex flex-wrap gap-4 items-center">
-
+          <div className="flex flex-wrap sm:flex-nowrap gap-3 items-center w-full mb-8 sm:mb-0">
             <button
               onClick={() => setEditOpen(true)}
-              className="bg-[#E8A313] text-white px-8 py-3 rounded-full"
+              className="bg-[#E8A313] hover:bg-[#D8940D] transition text-white px-5 sm:px-8 py-3 rounded-full font-semibold flex-1 sm:flex-initial text-center text-sm sm:text-base shadow-md"
             >
               Edit Product
             </button>
 
-            <button className="bg-[#E8A313] text-white px-8 py-3 rounded-full">
+            <button className="bg-[#E8A313] hover:bg-[#D8940D] transition text-white px-5 sm:px-8 py-3 rounded-full font-semibold flex-1 sm:flex-initial text-center text-sm sm:text-base shadow-md">
               Buy It Now
             </button>
 
             <button
               onClick={() => toggleWishlist(product._id)}
-              className="w-12 h-12 rounded-full border flex items-center justify-center hover:scale-110 transition"
+              className="w-12 h-12 rounded-full border flex items-center justify-center hover:scale-110 transition shadow-sm bg-white shrink-0"
             >
               {product.wishlist ? (
                 <FaHeart className="text-red-500 text-xl" />
@@ -293,9 +293,9 @@ export default function ProductDetails({ products, setProducts }) {
 
           {/* DESCRIPTION */}
           {product.description && (
-            <div className="mt-10">
-              <h3 className="font-semibold text-lg mb-2">Description</h3>
-              <p className="text-gray-600">{product.description}</p>
+            <div className="mt-8 sm:mt-10">
+              <h3 className="font-semibold text-base sm:text-lg mb-2 text-[#0B4A75]">Description</h3>
+              <p className="text-sm sm:text-base text-gray-650 leading-relaxed">{product.description}</p>
             </div>
           )}
 

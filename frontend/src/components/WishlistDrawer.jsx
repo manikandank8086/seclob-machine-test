@@ -29,7 +29,7 @@ export default function WishlistDrawer({
       />
 
       {/* Drawer */}
-      <div className="fixed top-0 right-0 h-screen w-[380px] bg-white z-50 shadow-2xl overflow-y-auto">
+      <div className="fixed top-0 right-0 h-screen w-full max-w-[380px] bg-white z-50 shadow-2xl overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b">
           <h2 className="text-xl font-semibold">

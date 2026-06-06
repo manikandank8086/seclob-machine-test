@@ -106,25 +106,24 @@ export default function Home({
     <div className="min-h-screen bg-gray-50 p-4">
 
       {/* ACTION BUTTONS */}
-      <div className="flex justify-end gap-3 mb-4">
-
+      <div className="flex flex-wrap sm:flex-nowrap justify-center sm:justify-end gap-2 mb-6 mt-2">
         <button
           onClick={() => setShowCategoryModal(true)}
-          className="bg-[#EDA415] text-white px-4 py-2 rounded-full"
+          className="bg-[#EDA415] hover:bg-[#D8940D] transition text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm flex-1 sm:flex-initial text-center min-w-[120px]"
         >
           Add Category
         </button>
 
         <button
           onClick={() => setShowSubCategoryModal(true)}
-          className="bg-[#EDA415] text-white px-4 py-2 rounded-full"
+          className="bg-[#EDA415] hover:bg-[#D8940D] transition text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm flex-1 sm:flex-initial text-center min-w-[140px]"
         >
           Add Sub Category
         </button>
 
         <button
           onClick={() => setShowProductModal(true)}
-          className="bg-[#EDA415] text-white px-4 py-2 rounded-full"
+          className="bg-[#EDA415] hover:bg-[#D8940D] transition text-white px-4 py-2 rounded-full text-sm font-semibold shadow-sm w-full sm:w-auto text-center"
         >
           Add Product
         </button>
@@ -177,12 +176,12 @@ export default function Home({
           </div>
 
           {/* PAGINATION */}
-          <div className="flex justify-center mt-8 gap-2">
+          <div className="flex flex-wrap justify-center items-center mt-8 gap-1.5 px-2 pb-4">
 
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((p) => p - 1)}
-              className="px-3 py-1 border rounded disabled:opacity-40"
+              className="px-3 py-1.5 border rounded disabled:opacity-40 hover:bg-gray-100 transition text-sm font-medium"
             >
               Prev
             </button>
@@ -191,10 +190,11 @@ export default function Home({
               <button
                 key={i}
                 onClick={() => setCurrentPage(i + 1)}
-                className={`px-3 py-1 border rounded ${currentPage === i + 1
-                    ? "bg-black text-white"
-                    : ""
-                  }`}
+                className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border rounded text-sm transition font-medium ${
+                  currentPage === i + 1
+                    ? "bg-black text-white border-black"
+                    : "hover:bg-gray-100 text-gray-700"
+                }`}
               >
                 {i + 1}
               </button>
@@ -203,7 +203,7 @@ export default function Home({
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((p) => p + 1)}
-              className="px-3 py-1 border rounded disabled:opacity-40"
+              className="px-3 py-1.5 border rounded disabled:opacity-40 hover:bg-gray-100 transition text-sm font-medium"
             >
               Next
             </button>

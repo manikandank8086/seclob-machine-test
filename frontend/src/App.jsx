@@ -45,9 +45,7 @@ function Layout() {
       {/* BODY */}
       <div className="flex flex-1">
         {!hideSidebar && (
-          <div className="border-r">
-            <Sidebar onFilterChange={setFilter} />
-          </div>
+          <Sidebar onFilterChange={setFilter} />
         )}
 
         <div className="flex-1 min-h-screen bg-gray-50">
