@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+   baseURL: "https://seclob-machine-test.onrender.com/api",
 });
+
 
 // 🔥 auto attach token
 api.interceptors.request.use((config) => {

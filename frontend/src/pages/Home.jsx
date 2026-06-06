@@ -93,7 +93,7 @@ export default function Home({
   );
 
   /* ---------------- IMAGE ---------------- */
-  const IMAGE_BASE_URL = "http://localhost:5000";
+  const IMAGE_BASE_URL = "https://seclob-machine-test.onrender.com"
 
   const getImageUrl = (img) => {
     if (!img) return "https://via.placeholder.com/300";
